@@ -2,7 +2,8 @@
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
+
+    sf::RenderWindow window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "2D Physics Simulator");
     window.setFramerateLimit(144);
 
     while (window.isOpen())
