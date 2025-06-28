@@ -28,9 +28,19 @@ class Vector2D {
         return {x_ - other.x_, y_ - other.y_};
     }
 
+    // scalar subtraction
+    Vector2D operator-(float scalar) const{
+        return {x_ - scalar, y_ - scalar};
+    }
+
     // vector addition
     Vector2D operator+(const Vector2D other) const{
         return {x_ + other.x_, y_ + other.y_};
+    }
+
+    // scalar addition
+    Vector2D operator+(float scalar) const{
+        return {x_ + scalar, y_ + scalar};
     }
 
     // scalar multiplication
@@ -110,6 +120,79 @@ class Vector2D {
         // handle null division 
         if (scalar == 0.0f) x_ = 0.0f, y_ = 0.0f;
         else x_ /= scalar, y_ /= scalar;
+    }
+
+
+    // --Logical Operators--
+    // vector equality
+    bool operator==(const Vector2D other) const{
+        return x_ == other.x_ && y_ == other.y_;
+    }
+
+    // scalar equality
+    bool operator==(float scalar) const{
+        return x_ == scalar && y_ == scalar;
+    }
+
+    // vector inequality
+    bool operator!=(const Vector2D other) const{
+        return x_ != other.x_ || y_ != other.y_;
+    }
+
+    // scalar inequality
+    bool operator!=(float scalar) const{
+        return x_ != scalar || y_ != scalar;
+    }
+
+
+    // --Vector2D Specific Methods--
+    // vector dot product
+    float dot(const Vector2D other) const{
+        return x_ * other.x_ + y_ * other.y_;
+    }
+
+    // vector cross product
+    float cross(const Vector2D other) const{
+        return x_ * other.y_ - y_ * other.x_;
+    }
+
+    // magnitude getter
+    float magnitude() const{
+        return sqrt(x_*x_ + y_*y_);
+    }
+
+    // normal vector getter
+    Vector2D normalized() const{
+        float magnitude = this->magnitude();
+        if (!magnitude) return *this;
+        return {x_ / magnitude, y_ / magnitude};
+    }
+
+    // sets the vector to its normal
+    Vector2D setNormal() {
+        *this = this->normalized();
+        return *this;
+    }
+
+    // perpendicular vector getter (90 degrees counter-clockwise)
+    Vector2D perpendicular() const{
+        return {y_, -x_};
+    }
+
+    // inverted vector getter
+    Vector2D inverted() const{
+        return {-x_, -y_};
+    }
+
+    // sets the vector to its inverted
+    Vector2D setInverted() {
+        *this = this->inverted();
+        return *this;
+    }
+
+    // printing Vector2D
+    friend std::ostream& operator<<(std::ostream& os, const Vector2D vec) {
+        os<< '(' << vec.x_ << " : " << vec.y_ << ')';
     }
 
 };
